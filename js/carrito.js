@@ -49,7 +49,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 3. Dibujar el estado guardado al cargar la pagina.
+  // 3. Eliminar un producto con la X del mini carrito.
+  const cuerpoCarrito = document.querySelector(".cart-dropdown-body");
+
+  if (cuerpoCarrito) {
+    cuerpoCarrito.addEventListener("click", (evento) => {
+      const boton = evento.target.closest(".btn-eliminar-mini");
+      if (!boton) return;
+
+      evento.preventDefault();
+      evento.stopPropagation();
+
+      const carrito = eliminarDelCarrito(boton.dataset.id);
+      dibujarListaCarrito();
+      mostrarMensaje(
+        carrito.length > 0
+          ? "Producto eliminado del carrito"
+          : "Carrito vacio"
+      );
+    });
+  }
+
+  // 4. Dibujar el estado guardado al cargar la pagina.
   dibujarListaCarrito();
   actualizarContador();
 
@@ -65,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (carrito.length === 0) {
       cuerpo.innerHTML = `
         <tr>
-          <td colspan="4" class="text-center py-4 text-muted">
+          <td colspan="5" class="text-center py-4 text-muted">
             Tu carrito esta vacio
           </td>
         </tr>`;
@@ -81,6 +102,11 @@ document.addEventListener("DOMContentLoaded", () => {
               <span class="badge-cantidad">x${producto.cantidad}</span>
             </td>
             <td>${dinero(producto.precio * producto.cantidad)}</td>
+            <td>
+              <button type="button" class="btn-eliminar-mini" data-id="${producto.id}" title="Eliminar del carrito">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </td>
           </tr>`
         )
         .join("");
