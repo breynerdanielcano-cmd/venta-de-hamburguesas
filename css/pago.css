@@ -1,0 +1,119 @@
+/* ==========================================================
+   Estilos propios del proceso de pago (checkout y thank you).
+   Se mantienen aparte para no interferir con style.css.
+   ========================================================== */
+
+/* Lista de productos dentro del resumen de la orden */
+.checkout-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px dashed #ececec;
+}
+
+.checkout-item:last-child {
+  border-bottom: none;
+}
+
+.checkout-item img {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.checkout-item-datos {
+  flex: 1;
+  min-width: 0;
+}
+
+.checkout-item-datos p {
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.checkout-item-datos small {
+  font-size: 0.75rem;
+}
+
+.checkout-cantidad {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f4f4f4;
+  border-radius: 6px;
+  padding: 2px 7px;
+}
+
+.checkout-cantidad button {
+  border: none;
+  background: transparent;
+  color: #282525;
+  font-weight: bold;
+  line-height: 1;
+  padding: 2px 3px;
+  cursor: pointer;
+}
+
+.checkout-cantidad span {
+  min-width: 18px;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.checkout-item-total {
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* Enlace para volver a agregar productos */
+.link-agregar {
+  color: #282525;
+  font-weight: 600;
+}
+
+.link-agregar:hover {
+  color: #ffc800;
+}
+
+/* Botones deshabilitados */
+.cus-btn.deshabilitado,
+.cus-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Ajustes del resumen final */
+.resumen-compra .card-header {
+  background-color: #ffc800;
+  color: #282525;
+  font-weight: 700;
+}
+
+.resumen-compra h6 {
+  color: #282525;
+  font-weight: 700;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 6px;
+}
+
+#total-pagar {
+  font-size: 1.15rem;
+}
+
+/* Responsive */
+@media (max-width: 575px) {
+  .checkout-item {
+    flex-wrap: wrap;
+  }
+
+  .checkout-item-total {
+    margin-left: auto;
+  }
+}
