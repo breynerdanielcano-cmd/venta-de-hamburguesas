@@ -58,6 +58,21 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
+      // Verifica el stock actual (puede cambiar desde el Dashboard).
+      const catalogo = listarProductos();
+      const sinStock = carrito.find((item) => {
+        const producto = catalogo.find((p) => p.id === item.id);
+        return producto && item.cantidad > (Number(producto.stock) || 0);
+      });
+
+      if (sinStock) {
+        const producto = catalogo.find((p) => p.id === sinStock.id);
+        mostrarMensaje(
+          `Solo quedan ${producto.stock} unidades de ${sinStock.nombre}. Ajusta tu carrito.`
+        );
+        return;
+      }
+
       if (formulario && !formulario.checkValidity()) {
         formulario.reportValidity();
         return;
@@ -100,6 +115,8 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       guardarOrden(orden);
+      // Guarda el pedido en la base compartida con el Dashboard.
+      registrarPedidoDesdeTienda(orden);
       vaciarCarrito();
       window.location.href = "thankyou.html";
     });

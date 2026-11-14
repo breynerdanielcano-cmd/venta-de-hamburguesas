@@ -17,18 +17,30 @@ document.addEventListener("DOMContentLoaded", () => {
       evento.stopPropagation();
 
       const tarjeta = boton.closest(".card");
-      const nombre = tarjeta.querySelector("h3").textContent.trim();
-      const precio = Number(
-        tarjeta.querySelector("h5").textContent.replace(/[^\d]/g, "")
-      );
-      const imagen = tarjeta.querySelector("img").getAttribute("src");
+      const nombre = tarjeta.dataset.nombre || tarjeta.querySelector("h3").textContent.trim();
+      const precio = tarjeta.dataset.precio
+        ? Number(tarjeta.dataset.precio)
+        : Number(tarjeta.querySelector("h5").textContent.replace(/[^\d]/g, ""));
+      const imagen = tarjeta.dataset.imagen || tarjeta.querySelector("img").getAttribute("src");
+      const id = tarjeta.dataset.id || crearId(nombre);
+      const stock = tarjeta.dataset.stock !== undefined ? Number(tarjeta.dataset.stock) : null;
 
-      agregarAlCarrito({
-        id: crearId(nombre),
-        nombre,
-        precio,
-        imagen
-      });
+      // No permitir superar el stock disponible del producto.
+      const enCarrito = leerCarrito()
+        .filter((item) => item.id === id)
+        .reduce((total, item) => total + item.cantidad, 0);
+
+      if (stock !== null && stock <= 0) {
+        mostrarMensaje(`${nombre} esta agotado por el momento`);
+        return;
+      }
+
+      if (stock !== null && enCarrito >= stock) {
+        mostrarMensaje(`Solo hay ${stock} unidades de ${nombre}`);
+        return;
+      }
+
+      agregarAlCarrito({ id, nombre, precio, imagen });
 
       dibujarListaCarrito();
       mostrarMensaje(`${nombre} agregado al carrito`);

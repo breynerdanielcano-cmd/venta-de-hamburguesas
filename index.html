@@ -49,11 +49,16 @@
           <li class="nav-item">
             <a class="nav-link" href="index.html#contact">Contact Us</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="dashboard/login.html">Dashboard</a>
+          </li>
         </ul>
         
         <form class="d-flex">
           <div class="icons">
-            <i class="fa-regular fa-user"></i>
+            <a href="dashboard/login.html" id="enlace-dashboard" title="Dashboard administrativo" style="color:inherit;text-decoration:none;">
+              <i class="fa-regular fa-user"></i>
+            </a>
             <div class="carrito">
               <i class="fa-solid fa-cart-shopping"></i>
               <span class="contar-pro">0</span>
@@ -209,89 +214,7 @@
   <!-- burger -->
   <div class="container" id="burger">
     <h1>Delicious Burger</h1>
-    <div class="row content-pro" style="margin-top: 30px;">
-      <!-- aqui van los productos-->
-      <div class="col-md-3 py-3 py-md-0">
-        <div class="card">
-          <img src="./images/b1.png" alt="">
-          <div class="card-body">
-            <h3>Italian Pizza</h3>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <h5>$6.500 <span class="btn-product"><i class="fa-solid fa-basket-shopping"></i></span></h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 py-3 py-md-0">
-        <div class="card">
-          <img src="./images/b2.png" alt="">
-          <div class="card-body">
-            <h3>Fried Chicken</h3>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <h5>$20.300 <span class="btn-product"><i class="fa-solid fa-basket-shopping"></i></span></h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 py-3 py-md-0">
-        <div class="card">
-          <img src="./images/b3.png" alt="">
-          <div class="card-body">
-            <h3>Tasty Fries</h3>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <h5>$1.200 <span class="btn-product"><i class="fa-solid fa-basket-shopping"></i></span></h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 py-3 py-md-0">
-        <div class="card">
-          <img src="./images/b4.png" alt="">
-          <div class="card-body">
-            <h3>Pizza Slice</h3>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <h5>$3.200 <span class="btn-product"><i class="fa-solid fa-basket-shopping"></i></span></h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 py-3 py-md-0">
-        <div class="card">
-          <img src="./images/b5.png" alt="">
-          <div class="card-body">
-            <h3>Italian Pizza</h3>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <h5>$6.500 <span class="btn-product"><i class="fa-solid fa-basket-shopping"></i></span></h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 py-3 py-md-0">
-        <div class="card">
-          <img src="./images/b6.png" alt="">
-          <div class="card-body">
-            <h3>Fried Chicken</h3>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <h5>$20.300 <span class="btn-product"><i class="fa-solid fa-basket-shopping"></i></span></h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 py-3 py-md-0">
-        <div class="card">
-          <img src="./images/b7.png" alt="">
-          <div class="card-body">
-            <h3>Tasty Fries</h3>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <h5>$1.200 <span class="btn-product"><i class="fa-solid fa-basket-shopping"></i></span></h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 py-3 py-md-0">
-        <div class="card">
-          <img src="./images/b8.png" alt="">
-          <div class="card-body">
-            <h3>Pizza Slice</h3>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <h5>$3.200 <span class="btn-product"><i class="fa-solid fa-basket-shopping"></i></span></h5>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="row content-pro" id="productos-principal" style="margin-top: 30px;"></div>
   </div>
   <!-- burger -->
 
@@ -340,49 +263,8 @@
 
 
   <!-- burger -->
-  <div class="container" id="burger">
-    <div class="row" style="margin-top: 30px;">
-      <div class="col-md-3 py-3 py-md-0">
-        <div class="card">
-          <img src="./images/p1.png" alt="">
-          <div class="card-body">
-            <h3>Italian Pizza</h3>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <h5>$6.500 <span class="btn-product"><i class="fa-solid fa-basket-shopping"></i></span></h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 py-3 py-md-0">
-        <div class="card">
-          <img src="./images/p2.png" alt="">
-          <div class="card-body">
-            <h3>Fried Chicken</h3>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <h5>$20.300 <span class="btn-product"><i class="fa-solid fa-basket-shopping"></i></span></h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 py-3 py-md-0">
-        <div class="card">
-          <img src="./images/p3.png" alt="">
-          <div class="card-body">
-            <h3>Tasty Fries</h3>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <h5>$1.200 <span class="btn-product"><i class="fa-solid fa-basket-shopping"></i></span></h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 py-3 py-md-0">
-        <div class="card">
-          <img src="./images/p4.png" alt="">
-          <div class="card-body">
-            <h3>Pizza Slice</h3>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <h5>$3.200 <span class="btn-product"><i class="fa-solid fa-basket-shopping"></i></span></h5>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="container" id="otros-productos">
+    <div class="row" id="productos-otros" style="margin-top: 30px;"></div>
   </div>
   <!-- burger -->
 
@@ -525,7 +407,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   
   <!--archivo de carrito-->
+  <script src="js/datos.js"></script>
   <script src="js/tienda.js"></script>
+  <script src="js/catalogo.js"></script>
   <script src="js/carrito.js"></script>
 </body>
 </html>

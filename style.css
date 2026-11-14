@@ -1087,3 +1087,75 @@ input[type=date], input[type=text], input[type=email], input[type=file], input[t
     color: #fff;
     transform: scale(1.08);
 }
+
+/* ===================== CATALOGO DINAMICO ===================== */
+/* La tienda dibuja los productos guardados por el Dashboard. */
+#otros-productos{
+    margin-top: 60px;
+    font-family: 'Roboto Slab', serif;
+}
+#otros-productos .card,
+#burger .card{
+    overflow: hidden;
+}
+#otros-productos .card{
+    transition: 0.5s ease;
+    cursor: pointer;
+}
+#otros-productos .card:hover{
+    background-color: #ffc800;
+}
+#otros-productos .card h3{
+    font-weight: bold;
+    text-shadow: 0px 0px 1px black;
+}
+#otros-productos .card h5 span{
+    color: black;
+    float: right;
+}
+.catalogo-imagen{
+    position: relative;
+    overflow: hidden;
+}
+.catalogo-imagen img{
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+.catalogo-categoria{
+    display: inline-block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-color: #ffc800;
+    color: #111;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+.etiqueta-agotado{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #111;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.catalogo-stock{
+    display: block;
+    margin-top: 8px;
+    color: #6c6c6c;
+    font-size: 12px;
+}
+.sin-stock{
+    float: right;
+    background-color: #111;
+    color: #fff;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
