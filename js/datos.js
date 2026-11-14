@@ -443,7 +443,8 @@ function crearProducto(datos) {
     imagen: String(datos.imagen || "images/b1.png").trim(),
     creado: new Date().toISOString()
   };
-  productos.push(producto);
+  // Los productos nuevos van primero para que se vean en la tienda.
+  productos.unshift(producto);
   guardarLista(BD_CLAVES.productos, productos);
   return producto;
 }

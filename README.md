@@ -113,6 +113,25 @@ ultimo administrador.
   reflejan en la tienda.
 - Cuando hay una sesion activa, el icono de usuario de la tienda abre el panel.
 
+### Crear un producto con nombre e imagen propios
+
+En `dashboard/crear-pro.html`:
+
+1. **Producto**: escribe el nombre que quieras (no hay lista cerrada). Si el
+   nombre coincide con uno del catalogo se cargan su precio e imagen de ejemplo
+   como sugerencia, pero puedes cambiarlos.
+2. **Precio**, **Stock** y **Descripcion**: los datos que vera el cliente.
+3. **Imagen (URL de Google)**: en Google Imagenes haz clic derecho sobre la foto
+   y elige **Copiar direccion de imagen**; pega el enlace (debe empezar por
+   `https://`). La vista previa de la derecha muestra como quedara.
+4. **Crear Producto**: el producto queda guardado al inicio de la tienda, a la
+   venta, con su imagen, precio y descripcion. El boton **Volver a la tienda**
+   abre `index.html` para comprobarlo.
+
+Si la imagen no carga (el sitio de origen bloquea el enlace), la tienda muestra
+una imagen del catalogo en su lugar. Para editar un producto existente usa el
+lapiz del listado y cambia los mismos campos.
+
 ### Datos guardados
 
 | Clave de `localStorage` | Contenido |

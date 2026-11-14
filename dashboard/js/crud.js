@@ -144,7 +144,8 @@
     const formulario = qs(".container-fluid form");
     if (!formulario) return;
 
-    const select = qs("#productos-select");
+    const nombre = qs("#nombre-pro");
+    const imagenUrl = qs("#imagen-url");
     const precio = qs("#precio-pro");
     const stock = qs("#form6Example6");
     const descripcion = qs("#form6Example7");
@@ -152,82 +153,140 @@
     const boton = qs("button", formulario);
     const producto = ID_EDICION ? obtenerProducto(ID_EDICION) : null;
 
-    if (!select || !precio || !stock || !descripcion || !boton) return;
+    if (!nombre || !precio || !stock || !descripcion || !boton) return;
 
-    function aplicarCatalogo() {
-      const tipo = CATALOGO_PRODUCTOS.find(function (item) {
-        return item.nombre === select.value;
-      });
-      if (!tipo) return;
-      precio.value = tipo.precio;
-      if (imagen) imagen.src = rutaImagen(tipo.imagen);
+    const IMAGEN_DEFECTO = "images/b1.png";
+
+    // Normaliza lo que escribe el usuario: acepta URL de Google, ruta del
+    // proyecto ("images/foto.png"), "../images/foto.png" o "/images/foto.png".
+    function limpiarImagen(valor) {
+      let texto = String(valor == null ? "" : valor).trim();
+      if (!texto) return "";
+      texto = texto.replace(/^\.\.\//, "").replace(/^\.\//, "");
+      if (texto.charAt(0) === "/" && !/^\/\//.test(texto)) texto = texto.slice(1);
+      return texto;
     }
 
-    select.addEventListener("change", aplicarCatalogo);
+    function esImagenValida(valor) {
+      return /^(https?:\/\/|data:image\/|blob:)/i.test(valor) || /^images\/[\w.\-/%]+$/i.test(valor);
+    }
+
+    // Muestra la imagen en la vista previa y, si falla, deja un aviso.
+    function previsualizar(valor) {
+      if (!imagen) return;
+      const limpia = limpiarImagen(valor);
+      imagen.onerror = function () {
+        imagen.onerror = null;
+        imagen.src = rutaImagen(IMAGEN_DEFECTO);
+      };
+      const destino = limpia && esImagenValida(limpia) ? limpia : IMAGEN_DEFECTO;
+      imagen.src = rutaImagen(destino);
+    }
+
+    function buscarEnCatalogo(valor) {
+      const texto = normalizarTexto(valor);
+      if (!texto) return null;
+      return (
+        CATALOGO_PRODUCTOS.find(function (item) {
+          return normalizarTexto(item.nombre) === texto;
+        }) || null
+      );
+    }
+
+    function aplicarCatalogo() {
+      const tipo = buscarEnCatalogo(nombre.value);
+      if (!tipo) return;
+      // Solo rellena los campos vacios para no borrar lo que el usuario escribio.
+      if (!String(precio.value).trim()) precio.value = tipo.precio;
+      if (!limpiarImagen(imagenUrl ? imagenUrl.value : "")) {
+        if (imagenUrl) imagenUrl.value = tipo.imagen;
+        previsualizar(tipo.imagen);
+      }
+    }
+
+    nombre.addEventListener("input", aplicarCatalogo);
+    nombre.addEventListener("change", aplicarCatalogo);
+
+    if (imagenUrl) {
+      imagenUrl.addEventListener("input", function () {
+        previsualizar(imagenUrl.value);
+      });
+      imagenUrl.addEventListener("change", function () {
+        previsualizar(imagenUrl.value);
+      });
+    }
 
     if (producto) {
-      const existe = Array.prototype.some.call(select.options, function (opcion) {
-        return opcion.value === producto.nombre;
-      });
-
-      if (!existe) {
-        const opcion = document.createElement("option");
-        opcion.value = producto.nombre;
-        opcion.textContent = producto.nombre;
-        select.appendChild(opcion);
-      }
-
-      select.value = producto.nombre;
+      nombre.value = producto.nombre;
       precio.value = producto.precio;
       stock.value = producto.stock;
       descripcion.value = producto.descripcion || "";
-      if (imagen) imagen.src = rutaImagen(producto.imagen);
+      if (imagenUrl) imagenUrl.value = producto.imagen || "";
+      previsualizar(producto.imagen);
       boton.textContent = "Actualizar Producto";
+    } else {
+      previsualizar("");
     }
 
     function guardar(evento) {
       if (evento) evento.preventDefault();
 
-      const nombre = select.value;
-      const esPlaceholder = !nombre || /^seleccionar/i.test(nombre);
-
-      if (esPlaceholder) {
-        aviso("danger", "Selecciona el producto que deseas guardar.");
+      const nombreProducto = String(nombre.value || "").trim();
+      if (!nombreProducto) {
+        aviso("danger", "Escribe el nombre del producto que deseas guardar.");
+        nombre.focus();
         return;
       }
 
-      if (Number(precio.value) <= 0) {
+      if (nombreProducto.length < 2) {
+        aviso("danger", "El nombre del producto es demasiado corto.");
+        nombre.focus();
+        return;
+      }
+
+      if (String(precio.value).trim() === "" || Number(precio.value) <= 0) {
         aviso("danger", "El precio debe ser mayor que cero.");
+        precio.focus();
         return;
       }
 
-      if (stock.value === "" || Number(stock.value) < 0) {
+      if (String(stock.value).trim() === "" || Number(stock.value) < 0) {
         aviso("danger", "Ingresa un stock válido.");
+        stock.focus();
+        return;
+      }
+
+      const imagenEscrita = imagenUrl ? limpiarImagen(imagenUrl.value) : "";
+
+      if (imagenEscrita && !esImagenValida(imagenEscrita)) {
+        aviso(
+          "danger",
+          "La direccion de la imagen no es valida. Debe empezar con https:// (copiar direccion de imagen en Google)."
+        );
+        if (imagenUrl) imagenUrl.focus();
         return;
       }
 
       const repetido = listarProductos().some(function (item) {
         return (
-          normalizarTexto(item.nombre) === normalizarTexto(nombre) &&
+          normalizarTexto(item.nombre) === normalizarTexto(nombreProducto) &&
           (!producto || item.id !== producto.id)
         );
       });
 
       if (repetido) {
-        aviso("danger", 'Ya existe un producto llamado "' + nombre + '". Edítalo desde el listado.');
+        aviso("danger", 'Ya existe un producto llamado "' + nombreProducto + '". Edítalo desde el listado.');
         return;
       }
 
       const datos = {
-        nombre: nombre,
+        nombre: nombreProducto,
         descripcion: descripcion.value,
         precio: Number(precio.value),
         stock: Number(stock.value),
-        categoria: nombre,
+        categoria: nombreProducto,
         // La tienda vive en la raiz del proyecto: se guarda la ruta sin "../".
-        imagen: imagen
-          ? String(imagen.getAttribute("src") || "").replace(/^\.\.\//, "")
-          : "images/b1.png"
+        imagen: imagenEscrita || (producto && producto.imagen) || IMAGEN_DEFECTO
       };
 
       if (producto) {
@@ -235,7 +294,7 @@
         flash("success", "Producto actualizado correctamente.");
       } else {
         crearProducto(datos);
-        flash("success", "Producto creado correctamente.");
+        flash("success", "Producto creado correctamente. Ya esta a la venta en la tienda.");
       }
 
       window.location.href = "listado-pro.html";

@@ -347,58 +347,93 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="listado-pro.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                            <i class="fas fa-list fa-sm text-white-50"></i> Listado </a>
+                        <div class="d-none d-sm-flex align-items-center">
+                            <a href="listado-pro.html" class="btn btn-sm btn-primary shadow-sm mr-2">
+                                <i class="fas fa-list fa-sm text-white-50"></i> Listado </a>
+                            <a href="../index.html" class="btn btn-sm btn-success shadow-sm">
+                                <i class="fas fa-store fa-sm text-white-50"></i> Volver a la tienda </a>
+                        </div>
                     </div>
 
                     <!-- Content Row -->
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-lg-6">
                             <form>
                           
-                                <!-- Text input -->
-                                <div data-mdb-input-init class="form-outline mb-4">
-                                    <select id="productos-select" class="form-select form-control">
-                                        <option selected>Seleccionar un producto</option>
-                                        <option value="Hamburguesa">Hambruguesa</option>
-                                        <option value="Picada">Picada</option>
-                                        <option value="Pasta">Pasta</option>
-                                        <option value="Perro">Perro</option>
-                                        <option value="Sanchipapa">Sanchipapa</option>
-                                        <option value="Chuzo">Chuzo</option>
-                                        <option value="Pizza">Pizza</option>
-                                        <option value="Pollo">Pollo</option>
-                                        <option value="Tacos">Tacos</option>
-                                        <option value="Burrito">Burrito</option>
-                                      </select>
-                                  <label class="form-label" for="form6Example3">Producto</label>
+                                <!-- Nombre del producto (texto libre) -->
+                                <div class="form-group mb-4">
+                                    <label class="font-weight-bold" for="nombre-pro">Producto</label>
+                                    <input type="text" id="nombre-pro" class="form-control" list="catalogo-productos"
+                                        placeholder="Escribe el nombre del producto que quieras" autocomplete="off">
+                                    <datalist id="catalogo-productos">
+                                        <option value="Hamburguesa"></option>
+                                        <option value="Picada"></option>
+                                        <option value="Pasta"></option>
+                                        <option value="Perro"></option>
+                                        <option value="Sanchipapa"></option>
+                                        <option value="Chuzo"></option>
+                                        <option value="Pizza"></option>
+                                        <option value="Pollo"></option>
+                                        <option value="Tacos"></option>
+                                        <option value="Burrito"></option>
+                                    </datalist>
+                                    <small class="form-text text-muted">
+                                        Escribe cualquier producto. Si coincide con uno del catalogo se cargan su
+                                        precio e imagen de ejemplo (puedes cambiarlos).
+                                    </small>
                                 </div>
-                              
-                                <!-- Email input -->
-                                <div data-mdb-input-init class="form-outline mb-4">
-                                  <input type="number" id="precio-pro" class="form-control" />
-                                  <label class="form-label" for="form6Example5">Precio</label>
+
+                                <!-- Precio -->
+                                <div class="form-group mb-4">
+                                    <label class="font-weight-bold" for="precio-pro">Precio</label>
+                                    <input type="number" id="precio-pro" class="form-control" min="0" step="100"
+                                        placeholder="Ej: 25000">
                                 </div>
-    
-                                <!-- Number input -->
-                                <div data-mdb-input-init class="form-outline mb-4">
-                                  <input type="number" id="form6Example6" class="form-control" />
-                                  <label class="form-label" for="form6Example6">Stock</label>
+
+                                <!-- Stock -->
+                                <div class="form-group mb-4">
+                                    <label class="font-weight-bold" for="form6Example6">Stock</label>
+                                    <input type="number" id="form6Example6" class="form-control" min="0"
+                                        placeholder="Cantidad disponible">
                                 </div>
-                              
-                                <!-- Message input -->
-                                <div data-mdb-input-init class="form-outline mb-4">
-                                  <textarea class="form-control" id="form6Example7" rows="4"></textarea>
-                                  <label class="form-label" for="form6Example7">Descripcion</label>
+
+                                <!-- Descripcion -->
+                                <div class="form-group mb-4">
+                                    <label class="font-weight-bold" for="form6Example7">Descripcion</label>
+                                    <textarea class="form-control" id="form6Example7" rows="3"
+                                        placeholder="Describe el producto que vera el cliente en la tienda"></textarea>
                                 </div>
-                            
-                              
+
+                                <!-- Imagen desde URL -->
+                                <div class="form-group mb-4">
+                                    <label class="font-weight-bold" for="imagen-url">Imagen (URL de Google)</label>
+                                    <input type="text" id="imagen-url" class="form-control"
+                                        placeholder="https://... (pega aqui la direccion de la imagen)"
+                                        autocomplete="off">
+                                    <small class="form-text text-muted">
+                                        En Google Imagenes: clic derecho sobre la foto &gt; <b>Copiar direccion de
+                                        imagen</b> y pegala aqui. Si la dejas vacia se usa una imagen del catalogo.
+                                    </small>
+                                </div>
+
                                 <!-- Submit button -->
                                 <button data-mdb-ripple-init type="button" class="btn btn-primary btn-block mb-4">Crear Producto</button>
                             </form>
                         </div>
-                        <div class="col-5">
-                            <img id="imagen-pro" src="https://m.media-amazon.com/images/I/61XV8PihCwL._SY250_.jpg" class="img-fluid" alt="">
+                        <div class="col-lg-5 offset-lg-1">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Vista previa</h6>
+                                </div>
+                                <div class="card-body text-center">
+                                    <img id="imagen-pro" src="../images/b1.png" class="img-fluid rounded mb-3"
+                                        alt="Vista previa del producto"
+                                        style="max-height:260px;object-fit:cover;width:100%">
+                                    <p class="text-muted small mb-0">
+                                        Asi se vera la imagen del producto en la tienda.
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                         
                       
@@ -466,9 +501,9 @@
     <!-- Page level custom scripts -->
 
     <!-- Base de datos compartida con la tienda (localStorage) -->
-    <script src="../js/datos.js"></script>
+    <script src="../js/datos.js?v=3"></script>
     <script src="js/dashboard.js"></script>
-    <script src="js/crud.js"></script>
+    <script src="js/crud.js?v=3"></script>
 
 </body>
 

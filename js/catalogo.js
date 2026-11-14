@@ -29,7 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
           ' data-imagen="' + escaparHtml(producto.imagen || "") + '"' +
           ' data-stock="' + stock + '">' +
           '<div class="catalogo-imagen">' +
-            '<img src="' + escaparHtml(producto.imagen || "images/b1.png") + '" alt="' + escaparHtml(producto.nombre) + '">' +
+            '<img src="' + escaparHtml(producto.imagen || "images/b1.png") + '" alt="' + escaparHtml(producto.nombre) + '"' +
+            ' referrerpolicy="no-referrer" loading="lazy"' +
+            ' onerror="this.onerror=null;this.src=\'images/b1.png\';">' +
             (agotado ? '<span class="etiqueta-agotado">Agotado</span>' : "") +
           "</div>" +
           '<div class="card-body">' +
